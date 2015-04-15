@@ -19,57 +19,73 @@ public class UserGui implements ActionListener
     public UserGui()
     {
         JFrame guiFrame = new JFrame();
-        JPanel panel = new JPanel();
+        guiFrame.setVisible( true );
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setVisible( true );
+        JPanel textFldPanel = new JPanel();
+        textFldPanel.setVisible( true );
+        
         //Close Program when the frame closes
         guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         guiFrame.setTitle("Private Messaging");
         guiFrame.setSize( 500, 500 );
         
+        
+        
         //Center the Window
         guiFrame.setLocationRelativeTo(null);
         
-        /**
-        INITIALIZATION OF INTERACTIVE ELEMENTS
-        **/
+        
         //Buttons deal with sending and receiving Messages
         JButton connectIP = new JButton( "Click To Attempt Connection");
+        connectIP.setBounds();
+        buttonPanel.add( connectIP );
+        
         JButton sendMsg = new JButton("Send Message");
+        sendMsg.setBounds();
+        guiFrame.add( sendMsg );
+        
         JButton encryptMsg = new JButton("Encrypt Message");
+        
+        buttonPanel.add( encryptMsg );
+        
         JButton decryptReceivedMsg = new JButton("Decrypt Received Message");
-        panel.add( connectIP );
-        panel.add( sendMsg );
-        panel.add( encryptMsg );
-        panel.add( decryptReceivedMsg );
+        
+        buttonPanel.add( decryptReceivedMsg );
+
+        
         
         //Fields to enter target IP
         TextField enterIP = new TextField( "Enter IP", 20);
-        panel.add( enterIP );
-        
+        textFldPanel.add( enterIP );
+
         //Fields for the 3 keys necessary to encrypt/decrypt messages
-        TextField k1 = new TextField( "", 5 );
-        TextField k2 = new TextField( "", 5 );
-        TextField k3 = new TextField( "", 5 );
-        panel.add( k1 );
-        panel.add( k2 );
-        panel.add( k3 );
-        
+        TextField k1 = new TextField( "K", 5 );
+        TextField k2 = new TextField( "E", 5 );
+        TextField k3 = new TextField( "Y", 5 );
+        textFldPanel.add( k1 );
+        textFldPanel.add( k2 );
+        textFldPanel.add( k3 );
+
         //Fields to compose messages
         TextField plainMsg = new TextField( "Enter Message", 40 );
-        TextField encryptedMsg = new TextField( "", 40 );
-        panel.add( plainMsg );
-        panel.add( encryptMsg );
-        
+        TextField encryptedMsg = new TextField( "Your Encrypted Message", 40 );
+        textFldPanel.add( plainMsg );
+        textFldPanel.add( encryptedMsg );
+
         //Fields to display the received messages
-        TextField rawRecMsg = new TextField( "", 40 );
-        TextField transRecMsg = new TextField( "", 40 );
-        panel.add( rawRecMsg );
-        panel.add( transRecMsg );
+        TextField rawRecMsg = new TextField( "Raw Received Message", 40 );
+        TextField transRecMsg = new TextField( "Modified Received Message", 40 );
+        textFldPanel.add( rawRecMsg );
+        textFldPanel.add( transRecMsg );
         
-        
+        guiFrame.add( textFldPanel );
+        guiFrame.add( buttonPanel );
     }
     
     public void actionPerformed( ActionEvent event )
     {
+        /**
         if( event.getSource() == connectIP )
         { 
         }
@@ -82,5 +98,6 @@ public class UserGui implements ActionListener
         else if( event.getSource() == decryptReceivedMsg )
         {
         }
+        */
     }
 }
