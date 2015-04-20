@@ -11,81 +11,92 @@ import java.awt.event.ActionEvent;
 
 public class UserGui implements ActionListener
 {
+    JButton connectIP, sendMsg, encryptMsg, decryptReceivedMsg;
+    TextField enterIP, k1, k2, k3, plainMsg, encryptedMsg, rawMsg, transMsg;
     public static void main(String[] args)
     {
         new UserGui();
     }
-    
+
     public UserGui()
     {
-        JFrame guiFrame = new JFrame();
-        guiFrame.setVisible( true );
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setVisible( true );
-        JPanel textFldPanel = new JPanel();
-        textFldPanel.setVisible( true );
-        
-        //Close Program when the frame closes
-        guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        guiFrame.setTitle("Private Messaging");
-        guiFrame.setSize( 500, 500 );
-        
-        
-        
-        //Center the Window
-        guiFrame.setLocationRelativeTo(null);
-        
-        
-        //Buttons deal with sending and receiving Messages
-        JButton connectIP = new JButton( "Click To Attempt Connection");
-        connectIP.setBounds();
-        buttonPanel.add( connectIP );
-        
-        JButton sendMsg = new JButton("Send Message");
-        sendMsg.setBounds();
-        guiFrame.add( sendMsg );
-        
-        JButton encryptMsg = new JButton("Encrypt Message");
-        
-        buttonPanel.add( encryptMsg );
-        
-        JButton decryptReceivedMsg = new JButton("Decrypt Received Message");
-        
-        buttonPanel.add( decryptReceivedMsg );
+        //Parameters for .setBounds( x, y, width, height ):
+        JFrame frame = new JFrame();
+        frame.setVisible( true );
 
+        //Close Program when the panel closes
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Private Messaging");
+        frame.setSize( 650, 650 );
+
+        //Center the Window
+        frame.setLocationRelativeTo(null);
+
+        //Initialize Panel Object
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
         
+        //add panel to frame
+        frame.add(panel);
+
+        //Buttons deal with sending and receiving Messages
+        connectIP = new JButton( "Click To Attempt Connection");
+        connectIP.setBounds( 50, 50, 200, 50);
+        panel.add( connectIP );
+
+        sendMsg = new JButton("Send Message");
+        sendMsg.setBounds( 50, 200, 200, 100);
+        panel.add( sendMsg );
+
+        encryptMsg = new JButton("Encrypt Message");
+        encryptMsg.setBounds(50,325, 200, 100);
+        panel.add( encryptMsg );
+
+        decryptReceivedMsg = new JButton("Decrypt Received Message");
+        decryptReceivedMsg.setBounds(50, 450, 200, 100);
+        panel.add( decryptReceivedMsg );
+
         
         //Fields to enter target IP
-        TextField enterIP = new TextField( "Enter IP", 20);
-        textFldPanel.add( enterIP );
+        enterIP = new TextField( "Enter IP", 20);
+        enterIP.setBounds(50, 100, 200, 25);
+        panel.add( enterIP );
 
         //Fields for the 3 keys necessary to encrypt/decrypt messages
-        TextField k1 = new TextField( "K", 5 );
-        TextField k2 = new TextField( "E", 5 );
-        TextField k3 = new TextField( "Y", 5 );
-        textFldPanel.add( k1 );
-        textFldPanel.add( k2 );
-        textFldPanel.add( k3 );
+        k1 = new TextField( "K", 5 );
+        k1.setBounds( 300, 50, 50, 25 );
+        panel.add( k1 );
 
+        k2 = new TextField( "E", 5 );
+         k2.setBounds( 350, 50, 50, 25 );
+         panel.add( k2 );
+ 
+        k3 = new TextField( "Y", 5 );
+         k3.setBounds( 400, 50, 50, 25 );
+         panel.add( k3 );
+ 
         //Fields to compose messages
-        TextField plainMsg = new TextField( "Enter Message", 40 );
-        TextField encryptedMsg = new TextField( "Your Encrypted Message", 40 );
-        textFldPanel.add( plainMsg );
-        textFldPanel.add( encryptedMsg );
+        plainMsg = new TextField( "Enter Message", 40 );
+        plainMsg.setBounds( 300, 100, 150, 225 );
+        panel.add( plainMsg );
+
+        encryptedMsg = new TextField( "Your Encrypted Message", 40 );
+        encryptedMsg.setBounds( 300, 325, 150, 225 );
+        panel.add( encryptedMsg );
 
         //Fields to display the received messages
-        TextField rawRecMsg = new TextField( "Raw Received Message", 40 );
-        TextField transRecMsg = new TextField( "Modified Received Message", 40 );
-        textFldPanel.add( rawRecMsg );
-        textFldPanel.add( transRecMsg );
-        
-        guiFrame.add( textFldPanel );
-        guiFrame.add( buttonPanel );
+        rawMsg = new TextField( "Raw Message", 40 );
+        rawMsg.setBounds( 450, 100, 150, 225);
+        panel.add( rawMsg );
+
+        transMsg = new TextField( "Translated Message", 40 );
+        transMsg.setBounds( 450, 325, 150, 225);
+        panel.add( transMsg );
     }
-    
+
     public void actionPerformed( ActionEvent event )
     {
-        /**
+        
         if( event.getSource() == connectIP )
         { 
         }
@@ -98,6 +109,5 @@ public class UserGui implements ActionListener
         else if( event.getSource() == decryptReceivedMsg )
         {
         }
-        */
     }
 }
