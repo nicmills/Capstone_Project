@@ -1,4 +1,4 @@
-import java.awt.TextField;
+import javax.swing.JTextArea;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 public class UserGui implements ActionListener
 {
     JButton connectIP, sendMsg, encryptMsg, decryptReceivedMsg;
-    TextField enterIP, k1, k2, k3, plainMsg, encryptedMsg, rawMsg, transMsg;
+    JTextArea enterIP, k1, k2, k3, plainMsg, encryptedMsg, rawMsg, transMsg;
     public static void main(String[] args)
     {
         new UserGui();
@@ -35,7 +35,7 @@ public class UserGui implements ActionListener
         //Initialize Panel Object
         JPanel panel = new JPanel();
         panel.setLayout(null);
-        
+
         //add panel to frame
         frame.add(panel);
 
@@ -56,47 +56,62 @@ public class UserGui implements ActionListener
         decryptReceivedMsg.setBounds(50, 450, 200, 100);
         panel.add( decryptReceivedMsg );
 
-        
         //Fields to enter target IP
-        enterIP = new TextField( "Enter IP", 20);
+        enterIP = new JTextArea( "Enter IP" );
         enterIP.setBounds(50, 100, 200, 25);
+        enterIP.setVisible(true);
+        enterIP.setLineWrap(true);
         panel.add( enterIP );
 
         //Fields for the 3 keys necessary to encrypt/decrypt messages
-        k1 = new TextField( "K", 5 );
+        k1 = new JTextArea( "K" );
         k1.setBounds( 300, 50, 50, 25 );
+        k1.setVisible(true);
+        k1.setLineWrap(true);
         panel.add( k1 );
 
-        k2 = new TextField( "E", 5 );
-         k2.setBounds( 350, 50, 50, 25 );
-         panel.add( k2 );
- 
-        k3 = new TextField( "Y", 5 );
-         k3.setBounds( 400, 50, 50, 25 );
-         panel.add( k3 );
- 
+        k2 = new JTextArea( "E" );
+        k2.setBounds( 350, 50, 50, 25 );
+        k2.setVisible(true);
+        k2.setLineWrap(true);
+        panel.add( k2 );
+
+        k3 = new JTextArea( "Y" );
+        k3.setBounds( 400, 50, 50, 25 );
+        k3.setVisible(true);
+        k3.setLineWrap(true);
+        panel.add( k3 );
+
         //Fields to compose messages
-        plainMsg = new TextField( "Enter Message", 40 );
+        plainMsg = new JTextArea( "Enter Message" );
         plainMsg.setBounds( 300, 100, 150, 225 );
+        plainMsg.setVisible(true);
+        plainMsg.setLineWrap(true);
         panel.add( plainMsg );
 
-        encryptedMsg = new TextField( "Your Encrypted Message", 40 );
+        encryptedMsg = new JTextArea( "Your Encrypted Message" );
         encryptedMsg.setBounds( 300, 325, 150, 225 );
+        encryptedMsg.setVisible(true);
+        encryptedMsg.setLineWrap(true);
         panel.add( encryptedMsg );
 
         //Fields to display the received messages
-        rawMsg = new TextField( "Raw Message", 40 );
+        rawMsg = new JTextArea( "Raw Message" );
         rawMsg.setBounds( 450, 100, 150, 225);
+        rawMsg.setVisible(true);
+        rawMsg.setLineWrap(true);
         panel.add( rawMsg );
 
-        transMsg = new TextField( "Translated Message", 40 );
+        transMsg = new JTextArea( "Translated Message" );
         transMsg.setBounds( 450, 325, 150, 225);
+        transMsg.setVisible(true);
+        transMsg.setLineWrap(true);
         panel.add( transMsg );
     }
 
     public void actionPerformed( ActionEvent event )
     {
-        
+
         if( event.getSource() == connectIP )
         { 
         }
