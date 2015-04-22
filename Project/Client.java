@@ -3,26 +3,33 @@ import java.io.*;
 
 public class Client
 {
-    private InetAddress peerIP;
-    private Socket writingSocket;
-
-    public Client( String paramIP )
+    private String serverName;
+    private final int PORTNUM = 1001;
+    private Socket sockClient;
+    private OutputStream outToServer;
+    private DataOutputStream messenger;
+    public Client( String initServerName )
     {
-        peerIP = (InetAddress)paramIP;
-        //try
-        //{
-        //    //writingSocket = new Socket(
-        //}catch(IOException e)
-        //{
-        //}
+        serverName = initServerName;
+        try
+        {
+            sockClient = new Socket( serverName, PORTNUM );
+            outToServer = sockClient.getOutputStream();
+            messenger = new DataOutputStream( outToServer );
+        }catch( IOException e )
+        {
+            e.printStackTrace();
+        }
     }
 
     public void sendMsg( String msg )
     {
-        
-    }
-    
-    public String readMsg()
-    {
+        try
+        {
+            messenger.writeUTF( msg );
+        }catch(IOException e )
+        {
+            e.printStackTrace();
+        }
     }
 }

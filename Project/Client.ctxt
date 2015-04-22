@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.params=initServerName
+comment0.target=Client(java.lang.String)
+comment1.params=msg
+comment1.target=void\ sendMsg(java.lang.String)
+numComments=2
