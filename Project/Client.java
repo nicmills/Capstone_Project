@@ -3,17 +3,19 @@ import java.io.*;
 
 public class Client
 {
-    private String serverName;
-    private final int PORTNUM = 1001;
+    private String serverPort;
+    private String hostName;
+    //private final int PORTNUM = 1001;
     private Socket sockClient;
     private OutputStream outToServer;
     private DataOutputStream messenger;
-    public Client( String initServerName )
+    public Client( String initServerName, String initServerPort )
     {
-        serverName = initServerName;
+        serverPort = initServerPort;
+        hostName = initServerName;
         try
         {
-            sockClient = new Socket( serverName, PORTNUM );
+            sockClient = new Socket( hostName, serverPort );
             outToServer = sockClient.getOutputStream();
             messenger = new DataOutputStream( outToServer );
         }catch( IOException e )

@@ -8,11 +8,14 @@ import javax.swing.JList;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.*;
 
 public class UserGui implements ActionListener
 {
     JButton connectIP, sendMsg, encryptMsg, decryptReceivedMsg;
-    JTextArea enterIP, k1, k2, k3, plainMsg, encryptedMsg, rawMsg, transMsg;
+    JTextArea enterHostName, enterClientPort, enterServerPort, k1, k2, k3, plainMsg, encryptedMsg, rawMsg, transMsg;
+    Client c1;
+    Server s1;
     public static void main(String[] args)
     {
         new UserGui();
@@ -45,23 +48,36 @@ public class UserGui implements ActionListener
         panel.add( connectIP );
 
         sendMsg = new JButton("Send Message");
-        sendMsg.setBounds( 50, 200, 200, 100);
+        sendMsg.setBounds( 50, 250, 200, 100);
         panel.add( sendMsg );
 
         encryptMsg = new JButton("Encrypt Message");
-        encryptMsg.setBounds(50,325, 200, 100);
+        encryptMsg.setBounds(50, 375, 200, 100);
         panel.add( encryptMsg );
 
         decryptReceivedMsg = new JButton("Decrypt Received Message");
-        decryptReceivedMsg.setBounds(50, 450, 200, 100);
+        decryptReceivedMsg.setBounds(50, 500, 200, 100);
         panel.add( decryptReceivedMsg );
 
         //Fields to enter target IP
-        enterIP = new JTextArea( "Enter IP" );
-        enterIP.setBounds(50, 100, 200, 25);
-        enterIP.setVisible(true);
-        enterIP.setLineWrap(true);
-        panel.add( enterIP );
+        enterHostName = new JTextArea( "Enter Host Name" );
+        enterHostName.setBounds(50, 100, 200, 25);
+        enterHostName.setVisible(true);
+        enterHostName.setLineWrap(true);
+        panel.add( enterHostName );
+        
+        enterClientPort = new JTextArea( "Enter Client Port" );
+        enterClientPort.setBounds(50, 150, 200, 25);
+        enterClientPort.setVisible(true);
+        enterClientPort.setLineWrap(true);
+        panel.add( enterClientPort );
+
+        enterServerPort = new JTextArea( "Enter Server Port" );
+        enterServerPort.setBounds(50, 200, 200, 25);
+        enterServerPort.setVisible(true);
+        enterServerPort.setLineWrap(true);
+        panel.add( enterServerPort );
+
 
         //Fields for the 3 keys necessary to encrypt/decrypt messages
         k1 = new JTextArea( "K" );
@@ -109,20 +125,35 @@ public class UserGui implements ActionListener
         panel.add( transMsg );
     }
 
+    public void insertReceivedMsg( String receivedMsg )
+    {
+        rawMsg.setText( receivedMsg );
+    }
+
     public void actionPerformed( ActionEvent event )
     {
-
         if( event.getSource() == connectIP )
-        { 
+        {
+            try
+            {
+                c1 = new Client( enterHostName.getText(), enterServerPort.getText() );
+                s1 = new Server( enterClientPort.getText(), this );
+            }catch( IOException e )
+            {
+                e.printStackTrace();
+            }
         }
         else if( event.getSource() == sendMsg )
         {
+            c1.sendMsg( plainMsg.getText() );
         }
         else if( event.getSource() == encryptMsg )
         {
+            //encrypter.scramble( plainMsg.getText() );
         }
         else if( event.getSource() == decryptReceivedMsg )
         {
+            //encrypter.unScramble( rawMsg.getText() );
         }
     }
 }
