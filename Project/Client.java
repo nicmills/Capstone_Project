@@ -3,13 +3,13 @@ import java.io.*;
 
 public class Client
 {
-    private String serverPort;
+    private int serverPort;
     private String hostName;
     //private final int PORTNUM = 1001;
     private Socket sockClient;
     private OutputStream outToServer;
     private DataOutputStream messenger;
-    public Client( String initServerName, String initServerPort )
+    public Client( String initServerName, int initServerPort )
     {
         serverPort = initServerPort;
         hostName = initServerName;

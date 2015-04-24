@@ -5,6 +5,4 @@ comment1.params=
 comment1.target=UserGui()
 comment2.params=receivedMsg
 comment2.target=void\ insertReceivedMsg(java.lang.String)
-comment3.params=event
-comment3.target=void\ actionPerformed(java.awt.event.ActionEvent)
-numComments=4
+numComments=3

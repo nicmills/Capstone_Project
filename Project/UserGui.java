@@ -10,12 +10,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.*;
 
-public class UserGui implements ActionListener
+public class UserGui
 {
-    JButton connectIP, sendMsg, encryptMsg, decryptReceivedMsg;
+    JButton connect, sendMsg, encryptMsg, decryptReceivedMsg;
     JTextArea enterHostName, enterClientPort, enterServerPort, k1, k2, k3, plainMsg, encryptedMsg, rawMsg, transMsg;
     Client c1;
     Server s1;
+    ClickListener listener;
     public static void main(String[] args)
     {
         new UserGui();
@@ -41,11 +42,11 @@ public class UserGui implements ActionListener
 
         //add panel to frame
         frame.add(panel);
-
+        
         //Buttons deal with sending and receiving Messages
-        connectIP = new JButton( "Click To Attempt Connection");
-        connectIP.setBounds( 50, 50, 200, 50);
-        panel.add( connectIP );
+        connect = new JButton( "Click To Attempt Connection");
+        connect.setBounds( 50, 50, 200, 50);
+        panel.add( connect );
 
         sendMsg = new JButton("Send Message");
         sendMsg.setBounds( 50, 250, 200, 100);
@@ -58,6 +59,13 @@ public class UserGui implements ActionListener
         decryptReceivedMsg = new JButton("Decrypt Received Message");
         decryptReceivedMsg.setBounds(50, 500, 200, 100);
         panel.add( decryptReceivedMsg );
+        
+        //Initialize and add the ClickListener object to the buttons
+        listener = new ClickListener( this );
+        connect.addActionListener( listener );
+        sendMsg.addActionListener( listener );
+        encryptMsg.addActionListener( listener );
+        decryptReceivedMsg.addActionListener( listener );
 
         //Fields to enter target IP
         enterHostName = new JTextArea( "Enter Host Name" );
@@ -65,7 +73,7 @@ public class UserGui implements ActionListener
         enterHostName.setVisible(true);
         enterHostName.setLineWrap(true);
         panel.add( enterHostName );
-        
+
         enterClientPort = new JTextArea( "Enter Client Port" );
         enterClientPort.setBounds(50, 150, 200, 25);
         enterClientPort.setVisible(true);
@@ -77,7 +85,6 @@ public class UserGui implements ActionListener
         enterServerPort.setVisible(true);
         enterServerPort.setLineWrap(true);
         panel.add( enterServerPort );
-
 
         //Fields for the 3 keys necessary to encrypt/decrypt messages
         k1 = new JTextArea( "K" );
@@ -130,30 +137,46 @@ public class UserGui implements ActionListener
         rawMsg.setText( receivedMsg );
     }
 
-    public void actionPerformed( ActionEvent event )
+    public class ClickListener implements ActionListener
     {
-        if( event.getSource() == connectIP )
+        UserGui g1;
+
+        public ClickListener( UserGui g )
         {
-            try
+            g1 = g;
+        }
+
+        public void actionPerformed( ActionEvent event )
+        {
+            if( event.getSource() == connect )
             {
-                c1 = new Client( enterHostName.getText(), enterServerPort.getText() );
-                s1 = new Server( enterClientPort.getText(), this );
-            }catch( IOException e )
-            {
-                e.printStackTrace();
+                int clientPort = Integer.parseInt( enterClientPort.getText() );
+                int serverPort = Integer.parseInt( enterServerPort.getText() );
+                try
+                {
+                    s1 = new Server( clientPort, g1 );
+                    c1 = new Client( enterHostName.getText(), serverPort  );
+                }catch( IOException e )
+                {
+                    e.printStackTrace();
+                }
+
+                while(true)
+                {
+                    if( event.getSource() == sendMsg )
+                    {
+                        c1.sendMsg( plainMsg.getText() );
+                    }
+                    else if( event.getSource() == encryptMsg )
+                    {
+                        //encrypter.scramble( plainMsg.getText() );
+                    }
+                    else if( event.getSource() == decryptReceivedMsg )
+                    {
+                        //encrypter.unScramble( rawMsg.getText() );
+                    }
+                }
             }
-        }
-        else if( event.getSource() == sendMsg )
-        {
-            c1.sendMsg( plainMsg.getText() );
-        }
-        else if( event.getSource() == encryptMsg )
-        {
-            //encrypter.scramble( plainMsg.getText() );
-        }
-        else if( event.getSource() == decryptReceivedMsg )
-        {
-            //encrypter.unScramble( rawMsg.getText() );
         }
     }
 }

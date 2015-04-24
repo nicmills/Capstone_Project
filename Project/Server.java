@@ -4,13 +4,13 @@ import java.io.*;
 public class Server extends Thread
 {
     private ServerSocket serverSocket;
-    private String clientPort;
+    private int clientPort;
     //private final int PORTNUM = 1001;
     private DataInputStream receivedData;
     private UserGui localGui;
-    public Server( String initClientPort, UserGui g1 ) throws IOException
+    public Server( int initClientPort, UserGui g1 ) throws IOException
     {
-        serverPort = initServerPort;
+        clientPort = initClientPort;
         serverSocket = new ServerSocket(clientPort);
         localGui = g1;
         serverSocket.setSoTimeout(100000);
